@@ -1,0 +1,83 @@
+<aura:component controller="AdventureListController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    
+    <aura:attribute name="items" type="Camping_Items__c[]"/>
+    
+    <aura:attribute name="totalPrice" type="Decimal"/>
+    
+    <aura:attribute name="allSet" type="String" default=""/>
+    
+    <aura:handler event="c:addItemEvent" action="{!c.handleAddItem}"/>
+    
+    <lightning:layout class="slds-page-header slds-page-header--object-home"> 
+        <div class="page-section page-header"> <h1 class="slds-text-heading--medium">Adventure Gears List</h1>
+        </div></lightning:layout>
+    
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Name"> Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Quantity">Quantity</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Price">Price</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Insured?">Insured product</div>
+                </th>
+            </tr>
+        </thead>
+    <tbody> 
+        <aura:iteration items="{!v.items}" var="item" indexVar="i">
+            <tr class="slds-hint-parent">
+                <td data-label="Name">
+                    <div class="slds-truncate" title="Name">
+                        <ui:outputText value="{!item.Name}"/>
+                    </div>
+                </td>
+                
+                <td data-label="Quantity">
+                    <div class="elds-truncate" title="Quantity">
+                        <ui:outputNumber value="{!item.Quantity__c}"/>
+                    </div>
+                </td>
+                <td data-label="Price">
+                    <div class="slds-truncate" title="Price">
+                        <ui:outputCurrency value="{!item.Price__c}"/>
+                    </div>
+                </td>
+                <td data-label="Insured">
+                    <div class="slds-truncate" title="Insured?">
+                        <ui:outputCheckbox value="{!item.Insurance_covered__c}"/>
+                    </div>   
+                </td> 
+
+                
+                <td data-label="delete"> 
+                    <div class="slds-truncate" title="Delete">
+                    <a target="_blank" data-value="{!item.Name}" onclick="{!c.removeRow}">
+                        <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="small" alternativeText="icon" /> 
+                        <span class="slds-assistive-text">Delete Icon</span> </a>
+                    </div>
+                </td>
+                
+            </tr></aura:iteration>
+        <td data-label="space">
+                    <div class="slds-truncate" title="blank">
+                    </div>   
+                </td> 
+                <td>
+                	<div class="slds-truncate" title="Total Price">
+                       Total price:-${!v.totalPrice}
+                    </div>
+                   
+                </td>
+        </tbody>
+    </table>
+    <br></br>
+    <div class="slds-align_absolute-center">
+    <lightning:button variant="success" label="Check out" title="Success" onclick="{! c.checkoutClick }"/>
+        </div>
+</aura:component>

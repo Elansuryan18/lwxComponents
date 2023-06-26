@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+<aura:attribute name="item" type="Camping_Items__c"/>
+<aura:attribute name="coverage" type ="String"/>
+</aura:event>
